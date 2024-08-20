@@ -4,7 +4,13 @@
         neededAmount: uint,
         description: (string-ascii 100),
         contact: (string-ascii 100)
-     }
+    }
+)
+
+(define-read-only (get-listing (needer principal))
+    (begin
+        (map-get? ListingData needer)
+    )
 )
 
 (define-public (list-needer (needer principal) (neededAmount uint) (description (string-ascii 100)) (contact (string-ascii 100))) 
@@ -13,6 +19,8 @@
         (ok needer)
     )
 )
+
+
 
 (define-public (say-hello) 
     (ok "Hello world")
