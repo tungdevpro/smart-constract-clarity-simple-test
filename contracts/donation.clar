@@ -1,5 +1,6 @@
 
 (define-constant LISTING_NOT_FOUND u101)
+(define-constant CANNOT_DONATE_YOURSELF u102)
 
 (define-data-var total_listing uint u0)
 
@@ -44,6 +45,9 @@
             (contact (get contact listing))
             (description (get description listing))
         )
+
+        (asserts! (not (is-eq tx-sender needer)) (err CANNOT_DONATE_YOURSELF))
+
         (try! (stx-transfer? neededAmountValue tx-sender needer))
         (map-set ListingData needer (
             merge listing {receivedAmount: (+ amount recivedAmountValue)}
